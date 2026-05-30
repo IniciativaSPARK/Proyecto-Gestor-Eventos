@@ -1,0 +1,12 @@
+{
+  "name": "proyecto-gestor-eventos",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "infra:up": "docker-compose up -d db",
+    "infra:down": "docker-compose down"
+  }
+}

@@ -139,34 +139,58 @@ Por mínima que parezca la duda, escríbela en el WhatsApp. No tengas miedo de l
 ---
 # 💻 Levantar el proyecto en local
 
-## Requisitos
+## 📋 Requisitos Previos
 
-Instalar previamente:
+Antes de iniciar, asegúrate de tener instalado:
 
-* Docker
-* Docker Compose
-* Node.js LTS
-* Python 3.10+
-* Git
+* **Docker Desktop** (activo y ejecutándose)
+* **Node.js LTS** (incluye npm)
+* **Python 3.10+**
+* **Git**
 
-# ⚙️ Configuración del Frontend
+---
 
-## 2. Instalar dependencias del frontend
+## 🐳 Paso 1: Levantar la Base de Datos (Docker)
+
+El backend depende de PostgreSQL, por lo que el contenedor debe iniciarse antes de ejecutar el servidor FastAPI.
+
+Desde la raíz del proyecto:
 
 ```bash
-cd apps/frontend
-npm install
+docker compose up -d db
+```
+
+> **Nota:** PostgreSQL se expone en el puerto `5433` para evitar conflictos con instalaciones locales existentes.
+
+Verifica que el contenedor esté ejecutándose:
+
+```bash
+docker ps
 ```
 
 ---
 
-## 3. Ejecutar servidor Angular SSR en desarrollo
+## 🎨 Paso 2: Configuración del Frontend (Angular)
+
+Abre una terminal y navega al frontend:
 
 ```bash
-npm run dev
+cd apps/frontend
 ```
 
-El frontend estará disponible en:
+Instala las dependencias:
+
+```bash
+npm install
+```
+
+Inicia el servidor de desarrollo:
+
+```bash
+npm start
+```
+
+La aplicación estará disponible en:
 
 ```text
 http://localhost:4200
@@ -174,41 +198,56 @@ http://localhost:4200
 
 ---
 
-# ⚙️ Configuración del Backend
+## ⚙️ Paso 3: Configuración del Backend (FastAPI)
 
-## 4. Entrar al backend
-
-```bash
-cd ../backend
-```
-
----
-
-## 5. Crear entorno virtual
-
-### Linux / macOS
+Abre una nueva terminal y navega al backend:
 
 ```bash
-python3 -m venv venv
-source venv/bin/activate
+cd apps/backend
 ```
 
-### Windows (PowerShell)
+### Crear y activar el entorno virtual
+
+#### Linux / macOS
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+#### Windows (PowerShell)
+
+Si PowerShell bloquea la ejecución de scripts:
 
 ```powershell
-python -m venv venv
-venv\Scripts\Activate.ps1
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 ```
 
----
+Crear el entorno virtual:
 
-## 6. Instalar dependencias Python
+```powershell
+python -m venv .venv
+```
+
+Activarlo:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+Cuando el entorno esté activo verás un prefijo similar a:
+
+```text
+(.venv) PS C:\ruta\del\proyecto>
+```
+
+### Instalar dependencias
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## 7. Iniciar servidor FastAPI
+### Ejecutar FastAPI
 
 ```bash
 uvicorn app.main:app --reload
@@ -217,9 +256,66 @@ uvicorn app.main:app --reload
 El backend estará disponible en:
 
 ```text
-http://localhost:8000
+http://127.0.0.1:8000
 ```
 
+Documentación interactiva:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+---
+
+## 🛠️ Ejecutar todo con Docker (Opcional)
+
+Si prefieres levantar todos los servicios mediante contenedores:
+
+```bash
+docker compose up --build
+```
+
+Esto construirá y ejecutará los servicios definidos en `docker-compose.yml`.
+
+---
+
+## 🔧 Solución de problemas comunes
+
+### Error de conexión a la base de datos
+
+Asegúrate de haber iniciado PostgreSQL previamente:
+
+```bash
+docker compose up -d db
+```
+
+### Error al activar el entorno virtual en Windows
+
+Ejecuta:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+```
+
+y vuelve a intentar:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+### El frontend no inicia
+
+Verifica que las dependencias estén instaladas:
+
+```bash
+npm install
+```
+
+y luego ejecuta:
+
+```bash
+npm start
+```
 
 ---
 

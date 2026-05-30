@@ -1,0 +1,33 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: spark_eventos_db
+    environment:
+      POSTGRES_USER: spark_admin
+      POSTGRES_PASSWORD: spark_secure_password
+      POSTGRES_DB: spark_eventos
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - spark-network
+
+  backend:
+    build: ./apps/backend
+    container_name: spark_eventos_backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://spark_admin:spark_secure_password@db:5432/spark_eventos
+    depends_on:
+      - db
+    networks:
+      - spark-network
+
+volumes:
+  postgres_data:
+
+networks:
+  spark-network:
+    driver: bridge
