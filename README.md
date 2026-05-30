@@ -17,20 +17,40 @@ Primero, gracias por sumarte. Esto no es un tutorial ni un curso — es un proye
 
 ---
 
-## 🧠 ¿Qué estamos construyendo?
+# 🧠 ¿Qué estamos construyendo?
 
-Una aplicación web para visualizar, crear, configuar y eliminar eventos para (...)
+Una plataforma web dinámica para:
 
----
+- Visualizar eventos en tiempo real
+- Crear y configurar eventos
+- Administrar aforos
+- Gestionar horarios y detalles logísticos
+- Eliminar o actualizar eventos
+- Manejar contenido multimedia asociado a eventos
+- Administrar permisos y operaciones seguras desde un panel administrativo
 
-## 🛠 Stack
+El sistema está diseñado bajo un enfoque de arquitectura moderna desacoplada:
 
-| Capa    | Tecnología |
-| -------- | ------- |
-| Frontend  | Angular |
-| Backend | Python - FastAPI |
-| Base de datos |  |
-| Almacenamiento de imágenes |  |
+- Frontend SSR optimizado para rendimiento y SEO
+- Backend API REST de alto rendimiento
+- Persistencia relacional robusta
+- Infraestructura desplegada sobre AWS
+- Contenerización completa mediante Docker
+
+# 🛠 Stack Tecnológico
+
+| Capa | Tecnología |
+|---|---|
+| Frontend | Angular v17+ con SSR |
+| Backend | Python 3.10+ + FastAPI |
+| Base de Datos | PostgreSQL |
+| Almacenamiento Multimedia | AWS S3 (Si aplica) |
+| Infraestructura | AWS EC2 |
+| Proxy Inverso | Nginx |
+| Contenerización | Docker + Docker Compose |
+| ORM | SQLAlchemy |
+| Gestión de Dependencias Frontend | pnpm |
+| Control de Versiones | Git + GitHub |
 
 ---
 
@@ -74,6 +94,20 @@ git checkout -b feature/carlos-dashboard
 
 ### 3. Trabaja, commitea y sube tu rama
 
+# 🧾 Convención de Commits
+
+Usaremos convención basada en Conventional Commits.
+
+## Prefijos
+
+| Prefijo   | Uso                                 |
+| --------- | ----------------------------------- |
+| feat:     | Nueva funcionalidad                 |
+| fix:      | Corrección de errores               |
+| refactor: | Refactor sin cambiar comportamiento |
+| style:    | Cambios visuales o formato          |
+| test:     | Pruebas                             |
+
 Usa prefijos claros en tus commits:
 
 ```bash
@@ -81,14 +115,6 @@ git add .
 git commit -m "feat: agregar login con JWT"
 git push origin feature/tu-rama
 ```
-
-**Prefijos de commit:**
-
-- `feat:` nueva funcionalidad
-- `fix:` corrección de bug
-- `refactor:` mejora sin cambiar comportamiento
-- `docs:` cambios en documentación
-- `chore:` mantenimiento, configuración
 
 ### 4. Abre un Pull Request hacia `main`
 
@@ -111,27 +137,120 @@ Cualquier **duda rápida, bloqueo o preguntas de implementación** puedes ir al 
 Por mínima que parezca la duda, escríbela en el WhatsApp. No tengas miedo de las "preguntas tontas", todos empezamos confundidos y es mejor preguntar que perder un día entero atorado.
 
 ---
+# 💻 Levantar el proyecto en local
 
-## 💻 Levantar el proyecto en local
+## Requisitos
 
-Primero, instalaras las librerias relacionadas:
+Instalar previamente:
+
+* Docker
+* Docker Compose
+* Node.js LTS
+* Python 3.10+
+* Git
+
+# ⚙️ Configuración del Frontend
+
+## 2. Instalar dependencias del frontend
 
 ```bash
-npm i
+cd apps/frontend
+npm install
 ```
 
-y luego iniciaras el development server:
+---
+
+## 3. Ejecutar servidor Angular SSR en desarrollo
 
 ```bash
 npm run dev
 ```
 
-Finalmente, abre [http://localhost:3000](http://localhost:3000) en tu navegador y verás la web. Si no aparece ningún error notorio, entonces estás listo para iniciar.
+El frontend estará disponible en:
+
+```text
+http://localhost:4200
+```
+
+---
+
+# ⚙️ Configuración del Backend
+
+## 4. Entrar al backend
+
+```bash
+cd ../backend
+```
+
+---
+
+## 5. Crear entorno virtual
+
+### Linux / macOS
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### Windows (PowerShell)
+
+```powershell
+python -m venv venv
+venv\Scripts\Activate.ps1
+```
+
+---
+
+## 6. Instalar dependencias Python
+
+```bash
+pip install -r requirements.txt
+```
+
+## 7. Iniciar servidor FastAPI
+
+```bash
+uvicorn app.main:app --reload
+```
+
+El backend estará disponible en:
+
+```text
+http://localhost:8000
+```
+
+
+---
+
+# 🔒 Seguridad y Buenas Prácticas
+
+## Nunca subir:
+
+* `.env`
+* credenciales AWS
+* llaves privadas
+* secretos JWT
+* tokens
+* certificados
+
+---
+
+## Siempre:
+
+* usar variables de entorno
+* validar inputs
+* usar tipado
+* revisar dependencias
+* mantener commits claros
+* documentar cambios importantes
 
 ---
 
 <div align="center">
   <img src="./public/spark-logo.png" alt="SPARK" width="40"/>
   <br/>
-  <sub><strong>SPARK</strong> · Armario Digital</sub>
+  <sub>
+    <strong>SPARK</strong> · Proyecto Gestión de Eventos
+  </sub>
 </div>
