@@ -72,7 +72,7 @@ El fork solo aplica cuando alguien externo quiere contribuir. Como parte del equ
 ### 1. Clona el repositorio
 
 ```bash
-git clone https://github.com/IniciativaSPARK/Proyecto-Armario-Digital
+git clone https://github.com/IniciativaSPARK/Proyecto-Gestor-Eventos.git
 cd Proyecto-Gestor-Eventos
 ```
 
